@@ -2,6 +2,7 @@ package com.hoangtien2k3.rabbitmq_demo.model;
 
 import lombok.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 public class Message implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private String id;
@@ -23,12 +25,4 @@ public class Message implements Serializable {
     private String status;
     private String messageType;
     private Integer priority;
-
-    public Message(String id, String content, String sender) {
-        this.id = id;
-        this.content = content;
-        this.sender = sender;
-        this.timestamp = LocalDateTime.now();
-        this.status = "PENDING";
-    }
 }

@@ -6,9 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 
 @Data
@@ -17,6 +17,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class ApiResponse<T> implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @JsonProperty("status")
@@ -37,15 +38,6 @@ public class ApiResponse<T> implements Serializable {
     @JsonProperty("errors")
     private Map<String, String> errors;
 
-    public static <T> ApiResponse<T> success(T data) {
-        return ApiResponse.<T>builder()
-                .status(200)
-                .message("Success")
-                .data(data)
-                .timestamp(LocalDateTime.now())
-                .build();
-    }
-
     public static <T> ApiResponse<T> success(String message, T data) {
         return ApiResponse.<T>builder()
                 .status(200)
@@ -59,15 +51,6 @@ public class ApiResponse<T> implements Serializable {
         return ApiResponse.<T>builder()
                 .status(status)
                 .message(message)
-                .timestamp(LocalDateTime.now())
-                .build();
-    }
-
-    public static <T> ApiResponse<T> error(int status, String message, Map<String, String> errors) {
-        return ApiResponse.<T>builder()
-                .status(status)
-                .message(message)
-                .errors(errors)
                 .timestamp(LocalDateTime.now())
                 .build();
     }
@@ -93,19 +76,7 @@ public class ApiResponse<T> implements Serializable {
         return error(400, message);
     }
 
-    public static <T> ApiResponse<T> notFound(String message) {
-        return error(404, message);
-    }
-
     public static <T> ApiResponse<T> internalError(String message) {
         return error(500, message);
-    }
-
-    public ApiResponse<T> addError(String field, String errorMessage) {
-        if (this.errors == null) {
-            this.errors = new HashMap<>();
-        }
-        this.errors.put(field, errorMessage);
-        return this;
     }
 }

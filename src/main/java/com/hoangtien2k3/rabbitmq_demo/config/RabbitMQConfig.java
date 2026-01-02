@@ -2,14 +2,18 @@ package com.hoangtien2k3.rabbitmq_demo.config;
 
 import com.hoangtien2k3.rabbitmq_demo.common.constant.RabbitMQConstant;
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * RabbitMQ Configuration
- * 
+ * <p>
  * Defines all exchanges, queues, and bindings for the application.
- * 
+ * <p>
  * Exchange types:
  * - DIRECT: Routes messages based on exact routing key match
  * - FANOUT: Broadcasts messages to all connected queues
@@ -18,6 +22,25 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RabbitMQConfig {
+
+    /**
+     * Use JacksonJsonMessageConverter for automatic JSON
+     * serialization/deserialization (Jackson 3)
+     */
+    @Bean
+    public MessageConverter jsonMessageConverter() {
+        return new JacksonJsonMessageConverter();
+    }
+
+    /**
+     * Explicitly configure RabbitTemplate to use JSON converter
+     */
+    @Bean
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+        RabbitTemplate template = new RabbitTemplate(connectionFactory);
+        template.setMessageConverter(jsonMessageConverter());
+        return template;
+    }
 
     // ==================== Direct Exchange Configuration ====================
 
