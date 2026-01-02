@@ -2,6 +2,8 @@
 
 A comprehensive demonstration of RabbitMQ messaging patterns implemented using Spring Boot 4.0.1 and Java 17.
 
+![RabbitMQ Demo](images/img.png)
+
 ## 🚀 Key Features
 
 - **Simple Queue**: Basic message sending and receiving.
