@@ -1,0 +1,133 @@
+spring:
+  application:
+    name: rabbitmq-demo
+  
+  # RabbitMQ Configuration
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    connection-timeout: 10000
+    publisher-confirms: true
+    publisher-returns: true
+    
+    # Listener Configuration
+    listener:
+      simple:
+        concurrency: 5
+        prefetch: 1
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 1000
+          multiplier: 2.0
+          max-interval: 10000
+        acknowledge-mode: manual
+        default-requeue-rejected: false
+
+# Queue Configuration
+rabbitmq:
+  queue:
+    # Hello Queue
+    hello:
+      name: hello.queue
+      durable: true
+      ttl: 3600000
+    
+    # User Queue
+    user:
+      name: user.queue
+      durable: true
+      ttl: 3600000
+    
+    # Message Queues
+    message:
+      normal:
+        name: message.normal.queue
+        durable: true
+        ttl: 1800000
+      critical:
+        name: message.critical.queue
+        durable: true
+        ttl: 7200000
+    
+    # Order Queues
+    order:
+      created:
+        name: order.created.queue
+        durable: true
+        ttl: 7200000
+      shipped:
+        name: order.shipped.queue
+        durable: true
+        ttl: 7200000
+    
+    # Headers Queue
+    headers:
+      name: headers.queue
+      durable: true
+      ttl: 3600000
+
+  exchange:
+    # Direct Exchange
+    direct:
+      name: direct.exchange
+      durable: true
+      type: direct
+    
+    # Fanout Exchange
+    fanout:
+      name: fanout.exchange
+      durable: true
+      type: fanout
+    
+    # Topic Exchange
+    topic:
+      name: topic.exchange
+      durable: true
+      type: topic
+    
+    # Headers Exchange
+    headers:
+      name: headers.exchange
+      durable: true
+      type: headers
+
+  routing-key:
+    hello: hello
+    user: user.#
+    message:
+      info: message.info
+      error: message.error
+    order:
+      created: order.created
+      shipped: order.shipped
+
+# Server Configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.hoangtien2k3.rabbitmq_demo: DEBUG
+    org.springframework.amqp: DEBUG
+  
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+# Management Endpoints (Actuator)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  
+  endpoint:
+    health:
+      show-details: always
