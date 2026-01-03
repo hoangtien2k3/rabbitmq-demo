@@ -3,7 +3,10 @@ package com.hoangtien2k3.rabbitmq_demo.service;
 import com.hoangtien2k3.rabbitmq_demo.common.util.MessageIdGenerator;
 import com.hoangtien2k3.rabbitmq_demo.model.Message;
 import com.hoangtien2k3.rabbitmq_demo.model.User;
-import com.hoangtien2k3.rabbitmq_demo.producer.RabbitMQProducer;
+import com.hoangtien2k3.rabbitmq_demo.publisher.topic.GeneralTopic;
+import com.hoangtien2k3.rabbitmq_demo.publisher.topic.MessageTopic;
+import com.hoangtien2k3.rabbitmq_demo.publisher.topic.OrderTopic;
+import com.hoangtien2k3.rabbitmq_demo.publisher.topic.UserTopic;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,11 +18,14 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class MessagingService {
 
-    private final RabbitMQProducer producer;
+    private final UserTopic userTopic;
+    private final OrderTopic orderTopic;
+    private final MessageTopic messageTopic;
+    private final GeneralTopic generalTopic;
 
     public void sendHello(String text) {
         log.info("Processing hello message: {}", text);
-        producer.sendHelloMessage(text);
+        generalTopic.sendHello(text);
     }
 
     public User createAndNotifyUser(User user) {
@@ -27,36 +33,36 @@ public class MessagingService {
             user.setId(System.currentTimeMillis());
         }
         log.info("Processing user creation: {}", user.getUsername());
-        producer.sendUserMessage(user);
+        userTopic.sendUserMessage(user);
         return user;
     }
 
     public Message sendNormalMessage(Message message) {
         prepareMessage(message, "MSG");
-        producer.sendNormalMessage(message);
+        messageTopic.sendNormalMessage(message);
         return message;
     }
 
     public Message sendCriticalMessage(Message message) {
         prepareMessage(message, "CRITICAL");
-        producer.sendCriticalMessage(message);
+        messageTopic.sendCriticalMessage(message);
         return message;
     }
 
     public Message sendDirectMessage(Message message, String routingKey) {
         prepareMessage(message, "DIRECT");
-        producer.sendDirectMessage(message, routingKey);
+        messageTopic.sendDirectMessage(message, routingKey);
         return message;
     }
 
     public void publishOrderCreated(String orderId) {
         String data = "Order Created Event: " + orderId + " at " + LocalDateTime.now();
-        producer.publishOrderCreatedEvent(orderId, data);
+        orderTopic.publishOrderCreated(data);
     }
 
     public void publishOrderShipped(String orderId) {
         String data = "Order Shipped Event: " + orderId + " at " + LocalDateTime.now();
-        producer.publishOrderShippedEvent(orderId, data);
+        orderTopic.publishOrderShipped(data);
     }
 
     private void prepareMessage(Message message, String prefix) {

@@ -1,6 +1,5 @@
 package com.hoangtien2k3.rabbitmq_demo.consumer;
 
-import com.hoangtien2k3.rabbitmq_demo.common.constant.RabbitMQConstant;
 import com.hoangtien2k3.rabbitmq_demo.model.Message;
 import com.hoangtien2k3.rabbitmq_demo.model.User;
 import lombok.extern.slf4j.Slf4j;
@@ -17,37 +16,37 @@ import org.springframework.stereotype.Service;
 @Service
 public class RabbitMQConsumer {
 
-    @RabbitListener(queues = RabbitMQConstant.QUEUE_HELLO)
+    @RabbitListener(queues = "${spring.rabbitmq.queues.hello.queue}")
     public void consumeHello(String message) {
         log.info("📥 [Simple] Received from hello.queue: {}", message);
     }
 
-    @RabbitListener(queues = RabbitMQConstant.QUEUE_USER)
+    @RabbitListener(queues = "${spring.rabbitmq.queues.user.queue}")
     public void consumeUser(User user) {
         log.info("📥 [Direct] Received User creation: {} ({})", user.getUsername(), user.getEmail());
     }
 
-    @RabbitListener(queues = RabbitMQConstant.QUEUE_MESSAGE_NORMAL)
+    @RabbitListener(queues = "${spring.rabbitmq.queues.message-normal.queue}")
     public void consumeNormal(Message message) {
         log.info("📥 [Direct] Received Normal message {}: {}", message.getId(), message.getContent());
     }
 
-    @RabbitListener(queues = RabbitMQConstant.QUEUE_MESSAGE_CRITICAL)
+    @RabbitListener(queues = "${spring.rabbitmq.queues.message-critical.queue}")
     public void consumeCritical(Message message) {
         log.warn("📥 [Direct] Received CRITICAL message {}: {}", message.getId(), message.getContent());
     }
 
-    @RabbitListener(queues = RabbitMQConstant.QUEUE_ORDER_CREATED)
+    @RabbitListener(queues = "${spring.rabbitmq.queues.order-created.queue}")
     public void handleOrderCreated(String message) {
         log.info("📥 [Topic] Received Order Created: {}", message);
     }
 
-    @RabbitListener(queues = RabbitMQConstant.QUEUE_ORDER_SHIPPED)
+    @RabbitListener(queues = "${spring.rabbitmq.queues.order-shipped.queue}")
     public void handleOrderShipped(String message) {
         log.info("📥 [Topic] Received Order Shipped: {}", message);
     }
 
-    @RabbitListener(queues = RabbitMQConstant.QUEUE_HEADERS)
+    @RabbitListener(queues = "${spring.rabbitmq.queues.headers.queue}")
     public void handleBroadcast(String message) {
         log.info("📥 [Fanout] Received Broadcast: {}", message);
     }
