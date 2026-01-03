@@ -29,5 +29,5 @@ spring:
       user:
         exchange: "${USER_EXCHANGE:direct.exchange}"
         queue: "${USER_QUEUE:user.queue}"
-        routing-key: "${USER_ROUTING_KEY:user.#}"
-        exchange-type: "direct"
+        routing-key: "${USER_ROUTING_KEY:user}"
+        exchange-type: "topic"
