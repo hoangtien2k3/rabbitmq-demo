@@ -1,14 +1,16 @@
 package com.hoangtien2k3.rabbitmq_demo.model;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.io.Serializable;
 
-@Getter
-@ToString
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User implements Serializable {
     private String username;
     private String email;

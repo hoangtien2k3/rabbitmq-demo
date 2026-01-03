@@ -16,6 +16,6 @@ public class RabbitMQConsumer {
 
     @RabbitListener(queues = "${spring.rabbitmq.queues.user.queue}")
     public void consumeUser(User user) {
-        log.info("📥 [Direct] Received User creation: {} ({})", user.getUsername(), user.getEmail());
+        log.info("📥 [Topic] Received User creation: {} ({})", user.getUsername(), user.getEmail());
     }
 }

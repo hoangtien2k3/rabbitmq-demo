@@ -22,6 +22,7 @@ public class QueueInitialization implements InitializingBean {
     private final ConnectionFactory connectionFactory;
 
     private static final String X_MAX_PRIORITY = "x-max-priority";
+    private static final String X_MESSAGE_TTL = "x-message-ttl";
 
     @Override
     public void afterPropertiesSet() {
@@ -29,6 +30,7 @@ public class QueueInitialization implements InitializingBean {
              Channel channel = connection.createChannel(false)) {
             Map<String, Object> args = new HashMap<>();
             args.put(X_MAX_PRIORITY, 100);
+            args.put(X_MESSAGE_TTL, 3600000);
             rabbitQueuePropertiesList.forEach(queue -> {
                 try {
                     channel.exchangeDeclare(queue.getExchange(), BuiltinExchangeType.TOPIC, false);
