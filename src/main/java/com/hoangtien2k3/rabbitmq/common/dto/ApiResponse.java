@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -16,9 +15,6 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApiResponse<T> implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
 
     @JsonProperty("status")
     private int status;
@@ -60,14 +56,6 @@ public class ApiResponse<T> implements Serializable {
                 .status(201)
                 .message("Created")
                 .data(data)
-                .timestamp(LocalDateTime.now())
-                .build();
-    }
-
-    public static <T> ApiResponse<T> accepted(String message) {
-        return ApiResponse.<T>builder()
-                .status(202)
-                .message(message)
                 .timestamp(LocalDateTime.now())
                 .build();
     }
