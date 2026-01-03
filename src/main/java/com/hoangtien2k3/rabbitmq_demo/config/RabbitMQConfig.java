@@ -5,18 +5,17 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
 public class RabbitMQConfig {
+
+    private final RabbitQueueProperties rabbitQueueProperties;
 
     @Bean
     public MessageConverter jsonMessageConverter() {
@@ -31,19 +30,14 @@ public class RabbitMQConfig {
     }
 
     /**
-     * Map configuration properties directly from application.yaml
+     * Expose the list of queues for QueueInitialization by extracting it from the
+     * properties bean.
      */
     @Bean
-    @ConfigurationProperties(prefix = "spring.rabbitmq.queues")
-    public Map<String, RabbitQueueProperties> rabbitQueuesMap() {
-        return new HashMap<>();
-    }
-
-    /**
-     * Expose the list of queues for QueueInitialization
-     */
-    @Bean
-    public List<RabbitQueueProperties> rabbitQueuePropertiesList(Map<String, RabbitQueueProperties> rabbitQueuesMap) {
-        return new ArrayList<>(rabbitQueuesMap.values());
+    public List<RabbitQueueProperties> rabbitQueuePropertiesList() {
+        if (rabbitQueueProperties.getQueues() == null) {
+            return new ArrayList<>();
+        }
+        return new ArrayList<>(rabbitQueueProperties.getQueues().values());
     }
 }

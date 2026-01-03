@@ -5,17 +5,17 @@ import com.hoangtien2k3.rabbitmq_demo.publisher.RabbitPublisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
-
 @Component
 @RequiredArgsConstructor
 public class GeneralTopic {
 
     private final RabbitPublisher<String> rabbitPublisher;
-    private final Map<String, RabbitQueueProperties> rabbitQueuesMap;
+    private final RabbitQueueProperties rabbitQueueProperties;
+
+    private static final String MESSAGE_HELLO = "hello";
 
     public void sendHello(String message) {
-        RabbitQueueProperties config = rabbitQueuesMap.get("hello");
+        RabbitQueueProperties config = rabbitQueueProperties.getQueues().get(MESSAGE_HELLO);
         if (config != null) {
             if (config.getExchange() != null && !config.getExchange().isEmpty()) {
                 rabbitPublisher.publish(config.getExchange(), config.getRoutingKey(), message);
