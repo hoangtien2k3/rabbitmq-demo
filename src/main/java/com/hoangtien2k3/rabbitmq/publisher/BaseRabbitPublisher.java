@@ -1,4 +1,4 @@
-package com.hoangtien2k3.rabbitmq_demo.publisher;
+package com.hoangtien2k3.rabbitmq.publisher;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

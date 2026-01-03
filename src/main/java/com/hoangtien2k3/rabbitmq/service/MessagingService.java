@@ -1,8 +1,8 @@
-package com.hoangtien2k3.rabbitmq_demo.service;
+package com.hoangtien2k3.rabbitmq.service;
 
-import com.hoangtien2k3.rabbitmq_demo.model.User;
-import com.hoangtien2k3.rabbitmq_demo.publisher.topic.HelloTopic;
-import com.hoangtien2k3.rabbitmq_demo.publisher.topic.UserTopic;
+import com.hoangtien2k3.rabbitmq.model.User;
+import com.hoangtien2k3.rabbitmq.publisher.topic.HelloTopic;
+import com.hoangtien2k3.rabbitmq.publisher.topic.UserTopic;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

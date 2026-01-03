@@ -1,4 +1,4 @@
-package com.hoangtien2k3.rabbitmq_demo.model;
+package com.hoangtien2k3.rabbitmq.model;
 
 import lombok.*;
 

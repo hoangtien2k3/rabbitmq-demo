@@ -1,7 +1,7 @@
-package com.hoangtien2k3.rabbitmq_demo.publisher.topic;
+package com.hoangtien2k3.rabbitmq.publisher.topic;
 
-import com.hoangtien2k3.rabbitmq_demo.config.RabbitQueueProperties;
-import com.hoangtien2k3.rabbitmq_demo.publisher.RabbitPublisher;
+import com.hoangtien2k3.rabbitmq.config.RabbitQueueProperties;
+import com.hoangtien2k3.rabbitmq.publisher.RabbitPublisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

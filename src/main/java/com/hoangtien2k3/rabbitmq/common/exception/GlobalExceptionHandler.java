@@ -1,6 +1,6 @@
-package com.hoangtien2k3.rabbitmq_demo.common.exception;
+package com.hoangtien2k3.rabbitmq.common.exception;
 
-import com.hoangtien2k3.rabbitmq_demo.common.dto.ApiResponse;
+import com.hoangtien2k3.rabbitmq.common.dto.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

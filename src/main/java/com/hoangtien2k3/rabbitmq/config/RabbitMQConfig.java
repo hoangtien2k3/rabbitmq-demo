@@ -1,4 +1,4 @@
-package com.hoangtien2k3.rabbitmq_demo.config;
+package com.hoangtien2k3.rabbitmq.config;
 
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

@@ -1,4 +1,4 @@
-package com.hoangtien2k3.rabbitmq_demo.publisher;
+package com.hoangtien2k3.rabbitmq.publisher;
 
 import java.io.Serializable;
 

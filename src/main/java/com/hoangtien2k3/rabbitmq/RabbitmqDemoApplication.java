@@ -1,4 +1,4 @@
-package com.hoangtien2k3.rabbitmq_demo;
+package com.hoangtien2k3.rabbitmq;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

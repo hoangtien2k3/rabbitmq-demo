@@ -1,8 +1,8 @@
-package com.hoangtien2k3.rabbitmq_demo.controller;
+package com.hoangtien2k3.rabbitmq.controller;
 
-import com.hoangtien2k3.rabbitmq_demo.common.dto.ApiResponse;
-import com.hoangtien2k3.rabbitmq_demo.model.User;
-import com.hoangtien2k3.rabbitmq_demo.service.MessagingService;
+import com.hoangtien2k3.rabbitmq.common.dto.ApiResponse;
+import com.hoangtien2k3.rabbitmq.model.User;
+import com.hoangtien2k3.rabbitmq.service.MessagingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

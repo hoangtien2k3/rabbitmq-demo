@@ -1,4 +1,4 @@
-package com.hoangtien2k3.rabbitmq_demo.common.dto;
+package com.hoangtien2k3.rabbitmq.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

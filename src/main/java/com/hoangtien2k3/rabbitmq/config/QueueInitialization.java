@@ -1,4 +1,4 @@
-package com.hoangtien2k3.rabbitmq_demo.config;
+package com.hoangtien2k3.rabbitmq.config;
 
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;

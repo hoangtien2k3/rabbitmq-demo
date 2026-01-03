@@ -1,6 +1,6 @@
-package com.hoangtien2k3.rabbitmq_demo.consumer;
+package com.hoangtien2k3.rabbitmq.consumer;
 
-import com.hoangtien2k3.rabbitmq_demo.model.User;
+import com.hoangtien2k3.rabbitmq.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
