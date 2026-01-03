@@ -26,38 +26,18 @@ public class QueueInitialization implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
         try (Connection connection = connectionFactory.createConnection();
-                Channel channel = connection.createChannel(false)) {
-
+             Channel channel = connection.createChannel(false)) {
             Map<String, Object> args = new HashMap<>();
             args.put(X_MAX_PRIORITY, 100);
-
-            for (RabbitQueueProperties queue : rabbitQueuePropertiesList) {
+            rabbitQueuePropertiesList.forEach(queue -> {
                 try {
-                    // Determine exchange type from properties, default to TOPIC
-                    BuiltinExchangeType type = BuiltinExchangeType.TOPIC;
-                    if (queue.getExchangeType() != null) {
-                        try {
-                            type = BuiltinExchangeType.valueOf(queue.getExchangeType().toUpperCase());
-                        } catch (IllegalArgumentException e) {
-                            log.warn("Invalid exchange type '{}' for exchange '{}', defaulting to TOPIC",
-                                    queue.getExchangeType(), queue.getExchange());
-                        }
-                    }
-
-                    channel.exchangeDeclare(queue.getExchange(), type, true); // durable = true
-
-                    if (queue.getQueue() != null && !queue.getQueue().isEmpty()) {
-                        channel.queueDeclare(queue.getQueue(), true, false, false, args);
-                        channel.queueBind(queue.getQueue(), queue.getExchange(), queue.getRoutingKey());
-                    }
-
-                    log.info("Initialized RabbitMQ: Exchange[{}]({}), Queue[{}]",
-                            queue.getExchange(), type, queue.getQueue());
+                    channel.exchangeDeclare(queue.getExchange(), BuiltinExchangeType.TOPIC, false);
+                    channel.queueDeclare(queue.getQueue(), true, false, false, args);
+                    channel.queueBind(queue.getQueue(), queue.getExchange(), queue.getRoutingKey());
                 } catch (Exception exception) {
-                    log.error("Error initializing RabbitMQ for queue '{}': {}", queue.getQueue(),
-                            exception.getMessage());
+                    log.error("init channel rabbitmq error {}", exception.getMessage());
                 }
-            }
+            });
         } catch (Exception e) {
             log.error("Failed to establish RabbitMQ connection for initialization", e);
         }
