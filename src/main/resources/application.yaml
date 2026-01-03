@@ -31,33 +31,3 @@ spring:
         queue: "${USER_QUEUE:user.queue}"
         routing-key: "${USER_ROUTING_KEY:user.#}"
         exchange-type: "direct"
-      message-normal:
-        exchange: "${MESSAGE_NORMAL_EXCHANGE:direct.exchange}"
-        queue: "${MESSAGE_NORMAL_QUEUE:message.normal.queue}"
-        routing-key: "${MESSAGE_NORMAL_ROUTING_KEY:message.info}"
-        exchange-type: "direct"
-      message-critical:
-        exchange: "${MESSAGE_CRITICAL_EXCHANGE:direct.exchange}"
-        queue: "${MESSAGE_CRITICAL_QUEUE:message.critical.queue}"
-        routing-key: "${MESSAGE_CRITICAL_ROUTING_KEY:message.error}"
-        exchange-type: "direct"
-      order-created:
-        exchange: "${ORDER_CREATED_EXCHANGE:topic.exchange}"
-        queue: "${ORDER_CREATED_QUEUE:order.created.queue}"
-        routing-key: "${ORDER_CREATED_ROUTING_KEY:order.created}"
-        exchange-type: "topic"
-      order-shipped:
-        exchange: "${ORDER_SHIPPED_EXCHANGE:topic.exchange}"
-        queue: "${ORDER_SHIPPED_QUEUE:order.shipped.queue}"
-        routing-key: "${ORDER_SHIPPED_ROUTING_KEY:order.shipped}"
-        exchange-type: "topic"
-      headers:
-        exchange: "${FANOUT_EXCHANGE:fanout.exchange}"
-        queue: "${HEADERS_QUEUE:headers.queue}"
-        routing-key: ""
-        exchange-type: "fanout"
-      headers-exchange:
-        exchange: "${HEADERS_EXCHANGE:headers.exchange}"
-        queue: ""
-        routing-key: ""
-        exchange-type: "headers"
